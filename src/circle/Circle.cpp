@@ -8,6 +8,16 @@ SDL_Point Circle::getPos() {
 }
 
 void Circle::render(SDL_Renderer* renderer, SDL_Rect* camera, SDL_Color color) {
+	// Don't render if it isn't visible
+	if (
+		(position_.x + radius_ < camera->x)             ||
+		(position_.x - radius_ > camera->x + camera->w) ||
+		(position_.y + radius_ < camera->y)             ||
+		(position_.y - radius_ > camera->y + camera->h)
+	) {
+		return;
+	}
+
 	SDL_Point points[8];
 
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
